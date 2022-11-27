@@ -23,3 +23,15 @@ start = time.time()
 factorial = facto(x)     
 end = time.time()
 print("Factorial of ", x, "! = ", factorial, " in ", end-start)
+
+# exp
+# def tri_recursion(k):
+#   if(k>0):
+#     result = k+tri_recursion(k-1)
+#     print(result)
+#   else:
+#     result = 0
+#   return result
+
+# print("\n\nRecursion Example Results")
+# tri_recursion(6)
