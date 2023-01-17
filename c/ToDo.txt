@@ -1,0 +1,15 @@
+Storage Classes ( auto, static, extern, register)
+ternary operator
+goto operator
+stdin, stdout and stderr
+Command Line arguments
+structures
+unions
+
+Enumeration data type
+preprocessor ( Date, FileName, define, undef, if, ifdef, ifndef, prepack, )
+Bitwise operators AND NOT OR XOR NOT
+
+________________________________________________________
+
+File Handling
