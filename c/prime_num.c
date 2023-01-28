@@ -22,3 +22,20 @@ int main()
     return 0;
     //getch();
 }
+
+/* void main()
+{
+	int n, i, fact=0;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    for(i=1;i<=n;i++)
+    {
+    	if(n%i == 0)
+        	fact++;
+    }
+    if(fact == 2)
+    	printf("Prime\n");
+    else
+    	printf("Composite\n");
+	printf("No.of factors: %d", fact);
+} */

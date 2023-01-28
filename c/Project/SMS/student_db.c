@@ -83,13 +83,12 @@ void update_student()
     system("cls");
     student_details sd, nsd;
 
-    FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "ab+");
+    FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "rb+");
     if(fp == NULL)
     {
-        printf("Failed to open file for reading\n");
+        printf("Failed to open file for updating\n");
         return;
     }
-    fseek(fp, 0, SEEK_SET);
     size_t sz = 0;
     fflush(stdin);
     do
@@ -102,28 +101,27 @@ void update_student()
                 // student_details nsd;
                 printf("Student Details:\n");
                 printf("Name: ");
-                scanf("%s", &sd.name);
+                scanf("%s", &nsd.name);
                 printf("Class: ");
-                scanf("%s", &sd.class);
+                scanf("%s", &nsd.class);
                 printf("Gender: ");
-                scanf("%s", &sd.gender);
+                scanf("%s", &nsd.gender);
                 printf("Birth date: ");
-                scanf("%d", &sd.birth_date);
+                scanf("%d", &nsd.birth_date);
                 printf("Birth Month: ");
-                scanf("%d", &sd.birth_month);
+                scanf("%d", &nsd.birth_month);
                 printf("Birth Year: ");
-                scanf("%d", &sd.birth_year);
+                scanf("%d", &nsd.birth_year);
                 printf("ID: ");
-                scanf("%d", &sd.id);
-                size_t fz = fwrite(&sd, sizeof(student_details), 1, fp);
-                printf("fz: %d", fz);
-                fflush(fp);
+                scanf("%d", &nsd.id);
+                fwrite(&nsd, sizeof(nsd), 1, fp);
+                // fflush(fp);
                 printf("Successfully Updated\n");
                 break;
             }
         }
     }while(sz != 0);
-    fflush(fp);
+    // fflush(fp);
     fclose(fp);
 }
 
@@ -285,9 +283,6 @@ void show_student_marks()
     }while(sz != 0);
     fclose(fp);
 }
-
-
-
 
 int main()
 {
