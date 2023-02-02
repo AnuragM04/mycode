@@ -1,0 +1,1 @@
+g++ sms.c sdetails.c smarks.c -o sms.exe 
