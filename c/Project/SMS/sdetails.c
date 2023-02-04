@@ -9,15 +9,8 @@ void  show_student_details_header()
     system("cls");
     printf("\t\t\t\t\tStudent Details\n");
     printf("\t\t\t\t\t---------------\n\n");
-    printf("%-10s\t%20s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s\n", "Roll Number", "Name", "Class", "Section", "Gender", "Mobile Number", "Blood Group");
-    printf("-----------------------------------------------------------------------------------------------------------\n\n");
-}
-
-void show_student_details(student_details* psd)
-{
-    char details[100];
-    sprintf(details, "%-10s\t%20s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s", psd->roll_no, psd->name, psd->clas, psd->section, psd->gender, psd->mob_no, psd->blood_grp);
-    printf("%s\n", details);
+    printf("%-10s\t%20s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s\n", "Roll Number", "Name", "Class", "Section", "Mobile Number", "Blood Group", "Email Id", "DOB");
+    printf("___________________________________________________________________________________________________________________\n\n");
 }
 
 void add_student()
@@ -34,19 +27,21 @@ void add_student()
     scanf("%s", &sd.clas);
     printf("Section: ");
     scanf("%s", &sd.section);
-    printf("Gender: ");
-    scanf("%s", &sd.gender);
     printf("Moblie Number: ");
     scanf("%s", &sd.mob_no);
     printf("Blood Group: ");
     scanf("%s", &sd.blood_grp);
+    printf("Email Id: ");
+    scanf("%s", &sd.email_id);
+    printf("DOB(dd/mm/yyyy): ");
+    scanf("%s", &sd.dob);
     
     strupr(sd.roll_no);
     strupr(sd.name);
     strupr(sd.clas);
     strupr(sd.section);
-    strupr(sd.gender);
-    strupr(sd.blood_grp);    
+    strupr(sd.blood_grp);
+    strlwr(sd.email_id);
 
     FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "ab");
 
@@ -106,12 +101,14 @@ void update_student()
                 scanf("%s", &nsd.clas);
                 printf("Section: ");
                 scanf("%s", &nsd.section);
-                printf("Gender: ");
-                scanf("%s", &nsd.gender);
                 printf("Moblie Number: ");
                 scanf("%s", &nsd.mob_no);
                 printf("Blood Group: ");
                 scanf("%s", &nsd.blood_grp);
+                printf("Email Id: ");
+                scanf("%s", &nsd.email_id);
+                printf("DOB(dd/mm/yyyy): ");
+                scanf("%s", &nsd.dob);
                 fwrite(&nsd, sizeof(nsd), 1, fp);
                 // fflush(fp);
                 printf("Successfully Updated\n");
@@ -126,6 +123,7 @@ void update_student()
 void show_student_details()
 {
     char roll_no[STUDENT_ROLL_NO] = {0};
+    system("cls");
     printf("Enter Student ID: ");
     scanf("%s", &roll_no);
     strupr(roll_no);
@@ -137,18 +135,24 @@ void show_student_details()
         printf("Failed to open file for reading\n");
         return;
     }
-    show_student_details_header();
     size_t sz = 0;
     do
     {
         sz = fread(&sd, sizeof(student_details), 1, fp);
         if(sz != 0)
         {
-            printf("%s\n", roll_no);
-            printf("%s\n", sd.roll_no);
+            // printf("%s\n", roll_no);
+            // printf("%s\n", sd.roll_no);
             if(strcmp(roll_no, sd.roll_no) == 0)
             {
-                show_student_details(&sd);
+                printf("Roll No: %s\n", sd.roll_no);
+                printf("Name: %s\n", sd.name);
+                printf("Class: %s\n", sd.clas);
+                printf("Section: %s\n", sd.section);
+                printf("Mobile No: %s\n", sd.mob_no);
+                printf("Blood Group: %s\n", sd.blood_grp);
+                printf("Email Id: %s\n", sd.email_id);
+                printf("DOB(dd/mm/yyyy): %s\n", sd.dob);
             }
         }
     }while(sz != 0);
@@ -172,7 +176,9 @@ void list_student_details()
         sz = fread(&sd, sizeof(student_details), 1, fp);
         if(sz != 0)
         {
-            show_student_details(&sd); 
+            char details[100];
+            sprintf(details, "%-10s\t%20s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s", sd.roll_no, sd.name, sd.clas, sd.section, sd.mob_no, sd.blood_grp, sd.email_id, sd.dob);
+            printf("%s\n", details);
         }
     }while(sz != 0);
     fclose(fp);

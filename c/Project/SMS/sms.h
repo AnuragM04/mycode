@@ -2,12 +2,13 @@
 #define STUDENT_MARKS_FILENAME "student_marks.dbs"
 #define TOTAL 400
 #define STUDENT_ROLL_NO 11
-#define STUDENT_NAME_MAX 20
+#define STUDENT_NAME_MAX 50
 #define STUDENT_CLAS_MAX 10
 #define STUDENT_SEC_MAX 10
 #define STUDENT_MOB_MAX 11
 #define STUDENT_BLOOD_GRP_MAX 5
-#define STUDENT_GENDER_MAX 10
+#define STUDENT_EMAIL_MAX 50
+#define STUDENT_DOB_MAX 11
 
 typedef struct 
 {
@@ -17,7 +18,8 @@ typedef struct
     char section[STUDENT_SEC_MAX];
     char mob_no[STUDENT_MOB_MAX];
     char blood_grp[STUDENT_BLOOD_GRP_MAX];
-    char gender[STUDENT_GENDER_MAX];
+    char email_id[STUDENT_EMAIL_MAX];
+    char dob[STUDENT_DOB_MAX];
 }student_details;
 
 typedef struct
