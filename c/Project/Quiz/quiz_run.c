@@ -20,6 +20,9 @@
 #include <string.h>
 #include "quiz.h"
 
+extern void get_user_profile(user_profile *pinfo);
+extern void save_user_profile(user_profile *pinfo);
+
 void parse_info(char* pbuffer, quiz_info* pqi)
 {
     int i = 0;
@@ -55,8 +58,10 @@ void show_quiz(quiz_info* qi)
     getch();
 }
 
-void easy_quiz()
+void start_quiz()
 {
+
+    /*
     char buffer[760];
     FILE *fp = fopen(QUIZ_SPORTS_FILE, "r");
     if(fp == NULL)
@@ -71,4 +76,10 @@ void easy_quiz()
         show_quiz(&qi);
     }
     fclose(fp);
+    */
+    user_profile up;
+    get_user_profile(&up);
+    up.level = 2;
+    up.score = 100;
+    save_user_profile(&up);
 }

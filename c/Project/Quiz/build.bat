@@ -1,1 +1,1 @@
-g++ quiz.c quiz_run.c -o quiz.exe
+g++ quiz.c quiz_run.c profile.c high_score.c -o quiz.exe
