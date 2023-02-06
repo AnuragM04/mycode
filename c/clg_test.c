@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include<conio.h>
+//#include <math.h>
 
+/*
 void main()
 {
     int nums[5], sum = 0, i;
@@ -17,4 +19,20 @@ void main()
         p++;
     }
     printf("Sum: %d\n", sum);
+}
+*/
+
+void main()
+{
+    int n;    
+    printf("enter values of n: ");
+    scanf("%d", &n);
+    int t[n];
+    for(int i =0; i<n; i++)
+    {
+        t[i] = t[i-1]+ t[i-2];
+        t[0] = 0;
+        t[1] = 1;
+        printf("%d\n",t[i]);
+    }
 }

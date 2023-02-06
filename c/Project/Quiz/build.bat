@@ -1,0 +1,1 @@
+g++ quiz.c quiz_run.c -o quiz.exe

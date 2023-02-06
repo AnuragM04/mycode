@@ -15,7 +15,7 @@ void parse_details(char* pbuffer, student_details* psd)
     {
         strcpy_s(values[i], 40, str);
         i++;
-        str = strtok(NULL, ",");
+        str = strtok(NULL, ",\n");
     }
     strcpy_s(psd->roll_no, STUDENT_ROLL_NO, values[0]);
     strcpy_s(psd->name, STUDENT_NAME_MAX, values[1]);

@@ -4,13 +4,13 @@
 #include <string.h>
 #include "sms.h"
 
-void  show_student_details_header()
+void show_student_details_header()
 {
     system("cls");
     printf("\t\t\t\t\tStudent Details\n");
     printf("\t\t\t\t\t---------------\n\n");
-    printf("%-10s\t%20s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s\n", "Roll Number", "Name", "Class", "Section", "Mobile Number", "Blood Group", "Email Id", "DOB");
-    printf("___________________________________________________________________________________________________________________\n\n");
+    printf("%-10s\t%-40s\t%-9s\t%-9s\n", "Roll Number", "Name", "Class", "Section");
+    printf("_____________________________________________________________\n\n");
 }
 
 void add_student()
@@ -35,7 +35,7 @@ void add_student()
     scanf("%s", &sd.email_id);
     printf("DOB(dd/mm/yyyy): ");
     scanf("%s", &sd.dob);
-    
+
     strupr(sd.roll_no);
     strupr(sd.name);
     strupr(sd.clas);
@@ -45,7 +45,7 @@ void add_student()
 
     FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "ab");
 
-    if(fp == NULL)
+    if (fp == NULL)
     {
         printf("Failed to open file for writing\n");
         return;
@@ -56,7 +56,7 @@ void add_student()
     printf("Do you want to add anymore student details(Y/N)?");
     fflush(stdin);
     scanf("%c", &option);
-    if(option == 'Y' || option == 'y')
+    if (option == 'Y' || option == 'y')
     {
         add_student();
     }
@@ -64,7 +64,6 @@ void add_student()
 
 void delete_student()
 {
-
 }
 
 void update_student()
@@ -77,7 +76,7 @@ void update_student()
     student_details sd, nsd;
 
     FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "rb+");
-    if(fp == NULL)
+    if (fp == NULL)
     {
         printf("Failed to open file for updating\n");
         return;
@@ -87,9 +86,9 @@ void update_student()
     do
     {
         sz = fread(&sd, sizeof(student_details), 1, fp);
-        if(sz != 0)
+        if (sz != 0)
         {
-            if(strcmp(roll_no, sd.roll_no) == 0)
+            if (strcmp(roll_no, sd.roll_no) == 0)
             {
                 // student_details nsd;
                 printf("Student Details:\n");
@@ -115,7 +114,7 @@ void update_student()
                 break;
             }
         }
-    }while(sz != 0);
+    } while (sz != 0);
     // fflush(fp);
     fclose(fp);
 }
@@ -130,7 +129,7 @@ void show_student_details()
     student_details sd;
 
     FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "rb");
-    if(fp == NULL)
+    if (fp == NULL)
     {
         printf("Failed to open file for reading\n");
         return;
@@ -139,23 +138,28 @@ void show_student_details()
     do
     {
         sz = fread(&sd, sizeof(student_details), 1, fp);
-        if(sz != 0)
+        if (sz != 0)
         {
-            // printf("%s\n", roll_no);
-            // printf("%s\n", sd.roll_no);
-            if(strcmp(roll_no, sd.roll_no) == 0)
+            if (strcmp(roll_no, sd.roll_no) == 0)
             {
-                printf("Roll No: %s\n", sd.roll_no);
-                printf("Name: %s\n", sd.name);
-                printf("Class: %s\n", sd.clas);
-                printf("Section: %s\n", sd.section);
-                printf("Mobile No: %s\n", sd.mob_no);
-                printf("Blood Group: %s\n", sd.blood_grp);
-                printf("Email Id: %s\n", sd.email_id);
-                printf("DOB(dd/mm/yyyy): %s\n", sd.dob);
+                printf("\n\n%-20s %s\n\n", "Roll No:", sd.roll_no);
+                printf("%-20s %s\n\n", "Name:", sd.name);
+                printf("%-20s %s\n\n", "Class:", sd.clas);
+                printf("%-20s %s\n\n", "Section:", sd.section);
+                printf("%-20s %s\n\n", "Mobile No:", sd.mob_no);
+                printf("%-20s %s\n\n", "Blood Group:", sd.blood_grp);
+                printf("%-20s %s\n\n", "Email Id:", sd.email_id);
+                printf("%-20s %s\n\n", "DOB(dd/mm/yyyy):", sd.dob);
+                break;
             }
         }
-    }while(sz != 0);
+    } while (sz != 0);
+
+    if (strcmp(roll_no, sd.roll_no) != 0)
+    {
+        printf("\n\nInvalid Roll No, student not found\n");
+    }
+
     fclose(fp);
 }
 
@@ -164,7 +168,7 @@ void list_student_details()
     student_details sd;
     FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "rb");
 
-    if(fp == NULL)
+    if (fp == NULL)
     {
         printf("Failed to open file for reading\n");
         return;
@@ -174,12 +178,10 @@ void list_student_details()
     do
     {
         sz = fread(&sd, sizeof(student_details), 1, fp);
-        if(sz != 0)
+        if (sz != 0)
         {
-            char details[100];
-            sprintf(details, "%-10s\t%20s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s\t%-9s", sd.roll_no, sd.name, sd.clas, sd.section, sd.mob_no, sd.blood_grp, sd.email_id, sd.dob);
-            printf("%s\n", details);
+            printf("%-10s\t%-40s\t%-9s\t%-9s\n", sd.roll_no, sd.name, sd.clas, sd.section);
         }
-    }while(sz != 0);
+    } while (sz != 0);
     fclose(fp);
 }
