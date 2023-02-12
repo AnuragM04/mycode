@@ -21,18 +21,19 @@
 extern void start_quiz();
 extern void high_scores();
 
+
 int main()
 {
     int choice = 0;
     do
     {
         system("cls");
-        printf("\n\n\n\n\n\n\t\t\t\t\t\t\tWELCOME TO QUIZ GAME\n");
-        printf("\t\t\t\t\t\t____________________________________");
-        printf("\n\n\t\t\t\t\t\t1. Start");
-        printf("\n\n\t\t\t\t\t\t2. High Scores");        
-        printf("\n\n\t\t\t\t\t\t3. Quit");
-        printf("\n\n\t\t\t\t\t\tEnter your Choice: ");
+        printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\tWELCOME TO QUIZ GAME\n");
+        printf("\t\t\t\t\t\t\t\t____________________________________\n\n");
+        printf("\n\n\t\t\t\t\t\t\t\t1. Start\n");
+        printf("\n\n\t\t\t\t\t\t\t\t2. High Scores\n");        
+        printf("\n\n\t\t\t\t\t\t\t\t3. Quit\n");
+        printf("\n\n\t\t\t\t\t\t\t\tEnter your Choice: ");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -43,11 +44,10 @@ int main()
             high_scores();
             break;
         case 3:
-            printf("\n\n\t\t\t\t\t\tBye");
+            printf("\n\n\t\t\t\t\t\t\t\t!!! THANK YOU !!!\n\n\t\t\t\t\t\t\t\t!!! BYE !!!");
             return 0;
         default:
-            printf("\n\n\t\t\t\t\t\tInvalid Choice");
-            getch();
+            printf("\n\n\t\t\t\t\t\t\t\tInvalid Choice");
             break;
         }
     }while(choice <= 3);

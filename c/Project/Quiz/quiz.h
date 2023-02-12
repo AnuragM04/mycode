@@ -24,14 +24,14 @@
 #define QUESTION_MAX 500
 #define DIFFICULTY_MAX 10
 #define OPTION_MAX 50
+#define QUIZ_TIMER 30
 
 #define USER_NAME_MAX 50
 #define USER_PIN_MAX 4
+#define USER_DATE_MAX 11
 
-#define MAX_EASY_QUESTIONS 10
-#define MAX_MEDIUM_QUESTIONS 10
-#define MAX_HARD_QUESTIONS 10
-
+#define MAX_QUESTIONS_LEVEL 10
+#define QUIZ_MAX_LEVEL 6
 typedef struct 
 {
     char question[QUESTION_MAX];
@@ -47,6 +47,7 @@ typedef struct
 {
     char name[USER_NAME_MAX];
     char pin[USER_PIN_MAX];
+    char date[USER_DATE_MAX];
     int score;
     int level;
 }user_profile;
