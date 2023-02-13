@@ -17,13 +17,63 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 extern void start_quiz();
 extern void high_scores();
 
+void show_banner()
+{
+    system("cls");
+    printf("\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t\t\t\t #####  #     # ### #######\n");
+    printf("\t\t\t\t\t\t\t\t\t#     # #     #  #       #\n");
+    printf("\t\t\t\t\t\t\t\t\t#     # #     #  #      #\n");   
+    printf("\t\t\t\t\t\t\t\t\t#     # #     #  #     #\n");    
+    printf("\t\t\t\t\t\t\t\t\t#   # # #     #  #    #\n");     
+    printf("\t\t\t\t\t\t\t\t\t#    #  #     #  #   #\n");      
+    printf("\t\t\t\t\t\t\t\t\t #### #  #####  ### #######\n"); 
+
+//    printf("\n\n\n\n\n");
+//   printf("\t\t\t\t\t  #####  #     # ######  ####### #     #    #     #####     ####### #     #  #####  ### #     # #     # ####### ######  ### #     #  #####      #####  ####### #       #       #######  #####  ####### \n");
+//    printf("\t\t\t\t\t #     # #     # #     # #        #   #    # #   #     #    #       ##    # #     #  #  ##    # ##    # #       #     #  #  ##    # #     #    #     # #     # #       #       #       #     # #       \n");
+//    printf("\t\t\t\t\t #       #     # #     # #         # #    #   #  #          #       # #   # #        #  # #   # # #   # #       #     #  #  # #   # #          #       #     # #       #       #       #       #       \n");
+//    printf("\t\t\t\t\t  #####  ####### ######  #####      #    #     #  #####     #####   #  #  # #  ####  #  #  #  # #  #  # #####   ######   #  #  #  # #  ####    #       #     # #       #       #####   #  #### #####   \n");
+//    printf("\t\t\t\t\t       # #     # #   #   #          #    #######       #    #       #   # # #     #  #  #   # # #   # # #       #   #    #  #   # # #     #    #       #     # #       #       #       #     # #       \n");
+//    printf("\t\t\t\t\t #     # #     # #    #  #          #    #     # #     #    #       #    ## #     #  #  #    ## #    ## #       #    #   #  #    ## #     #    #     # #     # #       #       #       #     # #       \n");
+//    printf("\t\t\t\t\t  #####  #     # #     # #######    #    #     #  #####     ####### #     #  #####  ### #     # #     # ####### #     # ### #     #  #####      #####  ####### ####### ####### #######  #####  ####### \n");
+       
+    Sleep(1000);                          
+}
+
+void thankyou_banner()
+{
+    system("cls");
+    printf("\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t\t\t\t  #######                                #     # ####### #     # \n");
+    printf("\t\t\t\t\t\t\t\t\t    #    #    #   ##   #    # #    #     #   #  #     # #     # \n");
+    printf("\t\t\t\t\t\t\t\t\t    #    #    #  #  #  ##   # #   #       # #   #     # #     # \n");
+    printf("\t\t\t\t\t\t\t\t\t    #    ###### #    # # #  # ####         #    #     # #     # \n");
+    printf("\t\t\t\t\t\t\t\t\t    #    #    # ###### #  # # #  #         #    #     # #     # \n");
+    printf("\t\t\t\t\t\t\t\t\t    #    #    # #    # #   ## #   #        #    #     # #     # \n");
+    printf("\t\t\t\t\t\t\t\t\t    #    #    # #    # #    # #    #       #    #######  #####  \n");
+    printf("\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t\t\t\t                ######  #     # #######                         \n");
+    printf("\t\t\t\t\t\t\t\t\t                #     #  #   #  #                               \n");
+    printf("\t\t\t\t\t\t\t\t\t                #     #   # #   #                               \n");
+    printf("\t\t\t\t\t\t\t\t\t                ######     #    #####                           \n");
+    printf("\t\t\t\t\t\t\t\t\t                #     #    #    #                               \n");
+    printf("\t\t\t\t\t\t\t\t\t                #     #    #    #                               \n");
+    printf("\t\t\t\t\t\t\t\t\t                ######     #    #######                         \n");
+                                                                   
+    Sleep(1000);                          
+}
+
 
 int main()
 {
+    show_banner();
+
     int choice = 0;
     do
     {
@@ -44,7 +94,7 @@ int main()
             high_scores();
             break;
         case 3:
-            printf("\n\n\t\t\t\t\t\t\t\t!!! THANK YOU !!!\n\n\t\t\t\t\t\t\t\t!!! BYE !!!");
+            thankyou_banner();
             return 0;
         default:
             printf("\n\n\t\t\t\t\t\t\t\tInvalid Choice");

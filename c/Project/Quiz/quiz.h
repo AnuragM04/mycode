@@ -46,7 +46,6 @@ typedef struct
 typedef struct 
 {
     char name[USER_NAME_MAX];
-    char pin[USER_PIN_MAX];
     char date[USER_DATE_MAX];
     int score;
     int level;
