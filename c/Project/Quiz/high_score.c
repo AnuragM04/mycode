@@ -57,7 +57,7 @@ void high_scores()
         fclose(fp);
         return;
     }
-
+    // Allocate memory for all users.
     user_profile* pup = (user_profile*) calloc(total_users, sizeof(user_profile));
 
     if(pup == NULL)
@@ -80,7 +80,7 @@ void high_scores()
 
     fclose(fp);
 
-    // Sort the users based on score.
+    // Sort the users based on score. (Descending order)
     for(int i= 0; i < (total_users - 1); ++i) {
         for(int j = 0; j < ( total_users - i - 1); ++j) {
             if(pup[j].score < pup[j+1].score) {
@@ -99,5 +99,3 @@ void high_scores()
 
     getch();
 }
-
-

@@ -55,14 +55,18 @@ void parse_info(char* pbuffer, quiz_info* pqi)
     if(str != NULL)
     {
         strcpy_s(pqi->question, QUESTION_MAX, str);
-        str = strtok(NULL, ",\n");
     }
-    while(str != NULL)
+
+    do
     {
-        strcpy_s(values[i], OPTION_MAX, str);
-        i++;
         str = strtok(NULL, ",\n");
-    }
+        if(str != NULL)
+        {
+            strcpy_s(values[i], OPTION_MAX, str);
+            i++;
+        }
+    }while(str != NULL);
+
     strcpy_s(pqi->difficulty, DIFFICULTY_MAX, values[0]);
     strcpy_s(pqi->optionA, OPTION_MAX, values[1]);
     strcpy_s(pqi->optionB, OPTION_MAX, values[2]);
@@ -97,7 +101,7 @@ void get_questions(int level, quiz_info* pqi)
         if(strcmp(qi.difficulty, difficulty) == 0)
         {
             //  Copy the question to the required 10 questions.
-            memcpy(pqi+question, &qi, sizeof(quiz_info));
+            memcpy(&pqi[question], &qi, sizeof(quiz_info));
             question++;
         }
         //  Checks if we have reached the Max questions required(10).
@@ -219,6 +223,7 @@ void start_quiz()
 
     int actual_score = correct*up.level;
 
+    //  Update User High score if it's larger than previous high score.
     if(actual_score > up.score)
     {
         if(correct != MAX_QUESTIONS_LEVEL)

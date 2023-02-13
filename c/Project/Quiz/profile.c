@@ -34,6 +34,12 @@ void get_user_profile(user_profile *pinfo)
     scanf("%s", &name);
     strupr(name);
 
+    if(pinfo == NULL)
+    {
+        printf("Invalid profile");
+        return;
+    }
+
 //  Fill User Profile with Default values incase Profile doesn't exist.
     strcpy_s(pinfo->name, USER_NAME_MAX, name);
     pinfo->score = 0;
@@ -52,12 +58,6 @@ void get_user_profile(user_profile *pinfo)
             getch();
             return;
         }
-    }
-
-    if(pinfo == NULL)
-    {
-        printf("Invalid profile");
-        return;
     }
 
     user_profile up;
@@ -109,7 +109,7 @@ void save_user_profile(user_profile *pinfo)
             //  Compare User name to User Profile read from database.
             if(strcmp(pinfo->name, up.name) == 0)
             {   
-                //  We found a Match of Profile Name, but the File pointer has moved ahead.
+                //  We found a Match of Profile Name, but the File pointer has moved ahead (when we did fread).
                 //  The File pointer has to move back by one block to update Match User Profile.
                 fseek(fp, -upsize, SEEK_CUR);
                 fwrite(pinfo, upsize, 1, fp);
