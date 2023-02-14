@@ -65,8 +65,9 @@ void parse_info(char* pbuffer, quiz_info* pqi)
             strcpy_s(values[i], OPTION_MAX, str);
             i++;
         }
-    }while(str != NULL);
 
+    } while (str != NULL);
+    
     strcpy_s(pqi->difficulty, DIFFICULTY_MAX, values[0]);
     strcpy_s(pqi->optionA, OPTION_MAX, values[1]);
     strcpy_s(pqi->optionB, OPTION_MAX, values[2]);
@@ -76,68 +77,141 @@ void parse_info(char* pbuffer, quiz_info* pqi)
 }
 
 //  This function returns 10 random question based on the current User Level.
-void get_questions(int level, quiz_info* pqi)
+void get_questions(int level, quiz_info* fqi)
 {
     //  Get Difficulty text for this level.
     char difficulty[DIFFICULTY_MAX];
     get_difficulty_text(level, difficulty);
 
+    char csvfiles[QUIZ_MAX_FILES][50] = { QUIZ_SPORTS_FILE, QUIZ_GEO_FILE, QUIZ_GENK_FILE, QUIZ_HISTORY_FILE };
+    
+    int totalquestions = MAX_QUESTIONS_LEVEL;
     int question = 0;
-    char buffer[760];
-    FILE *fp = fopen(QUIZ_SPORTS_FILE, "r");
-    if(fp == NULL)
+    char buffer[700];
+
+    quiz_info* pqi = (quiz_info *) calloc(MAX_QUESTIONS_LEVEL, sizeof(quiz_info));
+
+    if(pqi == NULL)
     {
-        printf("Failed to open file");
+        printf("Failed to allocate memory\n");
         getch();
         return;
     }
+
     quiz_info qi;
-    //  
-    while(fgets(buffer,760,fp) != NULL)
+
+    // Get all quiz questions with difficulty for this level from all files into dynamic memory
+    for(int fi = 0; fi < QUIZ_MAX_FILES; fi++)
     {
-        //  Parses each line of string and gets question, difficulty, options and answer.
-        parse_info(buffer, &qi);
-        //  Check if this question matches difficulty level required.
-        if(strcmp(qi.difficulty, difficulty) == 0)
+        FILE *fp = fopen(csvfiles[fi], "r");
+        if(fp == NULL)
         {
-            //  Copy the question to the required 10 questions.
-            memcpy(&pqi[question], &qi, sizeof(quiz_info));
-            question++;
+            printf("Failed to open file: %s\n", csvfiles[fi]);
+            getch();
+            continue;
         }
-        //  Checks if we have reached the Max questions required(10).
-        if(question >= MAX_QUESTIONS_LEVEL)
+
+        //  
+        while(fgets(buffer,700,fp) != NULL)
         {
-            break;
+            //  Parses each line of string and gets question, difficulty, options and answer.
+            parse_info(buffer, &qi);
+
+            //  Check if this question matches difficulty level required.
+            if(strcmp(qi.difficulty, difficulty) == 0)
+            {
+                //  Copy the question to the required 10 questions.
+                memcpy(&pqi[question], &qi, sizeof(quiz_info));
+                question++;
+            }
+
+            // dynamic memory allocated is not enough need to increase it using realloc
+            if(question >= totalquestions)
+            {
+                totalquestions += MAX_QUESTIONS_LEVEL;
+                pqi = (quiz_info *) realloc(pqi, totalquestions*sizeof(quiz_info));
+
+                if(pqi == NULL)
+                {
+                    printf("Failed to allocate memory\n");
+                    getch();
+                    return;
+                }
+
+            }
         }
+        fclose(fp);
     }
 
-    fclose(fp);
+    // To initialize randomizer
+    srand((unsigned int) time(NULL));
+
+    int repeat[MAX_QUESTIONS_LEVEL] = {0};
+    int r = 0;
+
+    // Copy random 10 questions needed for quiz session
+    for(int i = 0; i < MAX_QUESTIONS_LEVEL; )
+    {
+        int q = rand()%question;
+
+        // check if random question has been already asked
+        for(r = 0; r < i; r++)
+        {
+            if(repeat[r] == q)
+            {
+                // This question is already asked
+                break;
+            }
+        }
+
+        // This question is already asked get new question
+        if(repeat[r] == q)
+            continue;
+
+        // Copy question to the final list of questions to be asked
+        memcpy(&fqi[i], &pqi[q], sizeof(quiz_info));
+
+        // save the question number so that we don't ask the same
+        repeat[i] = q;
+
+        ++i;
+    }
+
+    free(pqi);
+    
 }
 
 int show_quiz(int question, quiz_info* qi, user_profile* pup, int correct)
 {
     system("cls");
+    fflush(stdin);
+
     char difficulty[DIFFICULTY_MAX];
     get_difficulty_text(pup->level, difficulty);
 
+    printf("\033[1;33m"); 
     printf("\n\n\t\t\t\t\t\t\t\t\t\t    QUIZ\n");
     printf("\t\t\t\t\t\t\t\t\t\t_____________");
+    printf("\033[1;34m"); 
     printf("\nUSER       : %s", pup->name);
     printf("\nLEVEL      : %d", pup->level);
     printf("\nHIGH-SCORE : %d", pup->score);
     printf("\nSCORE      : %d", correct*pup->level);
     printf("\nDIFFICULTY : %s", difficulty);
-    printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\tQuestion - %d\n\n\n\n", question);
+    printf("\033[1;32m"); 
+    printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\tQuestion - %d\n", question);
+    printf("\t\t\t\t\t\t\t\t\t       _______________\n\n\n", question);
+    printf("\033[0m");
     printf("\n\n\t\t\t\t%s\n\n", qi->question);
-    printf("\n\n\t\t\t\t\t\tA. %s\t\t\t\t\t\tB. %s\n\n", qi->optionA, qi->optionB);
-    printf("\n\n\t\t\t\t\t\tC. %s\t\t\t\t\t\tD. %s\n\n", qi->optionC, qi->optionD);
+    printf("\n\n\t\t\t\t\t\tA. %-50s\t\tB. %-50s\n\n", qi->optionA, qi->optionB);
+    printf("\n\n\t\t\t\t\t\tC. %-50s\t\tD. %-50s\n\n", qi->optionC, qi->optionD);
     printf("\n\n\t\t\t\t\t\tEnter your choice: ");
+
     int timer = QUIZ_TIMER;
     
     do
     {
         printf("\b\r\t\t\t\t\t\t\t\t\t\t\b\b%2ds\r\t\t\t\t\t\t\t\t\t", timer);
-        Sleep(1000);
         if(kbhit())
         {
             int key = getche();
@@ -171,20 +245,22 @@ int show_quiz(int question, quiz_info* qi, user_profile* pup, int correct)
                 break;
             default:
                 // User has entered wrong answer.
-                return 0;
                 break;
             }
             if(strcmp(option, qi->answer) == 0)
             {
                 //  User has entered correct answer.
+                Sleep(500);
                 return 1;
             }
             else
             {  
                 //  User has entered wrong answer.
+                Sleep(500);
                 return 0;
             }
         }
+        Sleep(1000);
         timer--;
     }while (timer > 0);
     //  Wrong answer
@@ -202,6 +278,7 @@ void start_quiz()
     if(pqi == NULL)
     {
         printf("Failed to allocate memory\n");
+        getch();
         return;
     }
     get_questions(up.level, pqi);
@@ -223,14 +300,15 @@ void start_quiz()
 
     int actual_score = correct*up.level;
 
-    //  Update User High score if it's larger than previous high score.
     if(actual_score > up.score)
     {
         if(correct != MAX_QUESTIONS_LEVEL)
         {
             system("cls");
+            printf("\033[1;36m"); 
             printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t!!! CONGRATULATIONS !!!\n\n\n");
             printf("\t\t\t\t\t\t\t\t\t!!! YOU HAVE IMPROVED YOUR HIGH SCORE !!!");
+            printf("\033[0m");
             fflush(stdin);
             getch();
         }
@@ -243,8 +321,10 @@ void start_quiz()
     else
     {
         system("cls");
+        printf("\033[1;36m"); 
         printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\tYOU SCORED : %d\n\n\n", actual_score);
         printf("\t\t\t\t\t\t\t\t\t%d CORRECT ANSWERS", correct);
+        printf("\033[0m");
         fflush(stdin);
         getch();
     }
@@ -252,8 +332,10 @@ void start_quiz()
     if(correct == MAX_QUESTIONS_LEVEL)
     {
         system("cls");
+        printf("\033[1;31m"); 
         printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t!!! CONGRATULATIONS !!!\n\n\n");
         printf("\t\t\t\t\t\t\t\t\t!!! YOU SUCCESSFULLY COMPLETED THIS LEVEL !!!");
+        printf("\033[0m");
         fflush(stdin);
         getch();
         up.level++;

@@ -27,18 +27,14 @@ void get_user_profile(user_profile *pinfo)
 {
     char name[USER_NAME_MAX];
     system("cls");
+    printf("\033[1;33m"); 
     printf("\n\n\t\t\t\t\t\t\t\t\t\t    QUIZ\n");
     printf("\t\t\t\t\t\t\t\t\t\t_____________");
+    printf("\033[0m");
     printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\tEnter your details:\n\n");
     printf("\t\t\t\t\t\t\t\t\tName: ");
     scanf("%s", &name);
     strupr(name);
-
-    if(pinfo == NULL)
-    {
-        printf("Invalid profile");
-        return;
-    }
 
 //  Fill User Profile with Default values incase Profile doesn't exist.
     strcpy_s(pinfo->name, USER_NAME_MAX, name);
@@ -58,6 +54,12 @@ void get_user_profile(user_profile *pinfo)
             getch();
             return;
         }
+    }
+
+    if(pinfo == NULL)
+    {
+        printf("Invalid profile");
+        return;
     }
 
     user_profile up;
@@ -109,7 +111,7 @@ void save_user_profile(user_profile *pinfo)
             //  Compare User name to User Profile read from database.
             if(strcmp(pinfo->name, up.name) == 0)
             {   
-                //  We found a Match of Profile Name, but the File pointer has moved ahead (when we did fread).
+                //  We found a Match of Profile Name, but the File pointer has moved ahead.
                 //  The File pointer has to move back by one block to update Match User Profile.
                 fseek(fp, -upsize, SEEK_CUR);
                 fwrite(pinfo, upsize, 1, fp);

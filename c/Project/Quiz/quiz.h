@@ -15,13 +15,14 @@
 */
 
 #define USER_PROFILE_FILE "scores/profile.dbs" 
+
+#define QUIZ_MAX_FILES 4
 #define QUIZ_SPORTS_FILE "data/sports.csv"
 #define QUIZ_GEO_FILE "data/geography.csv"
-#define QUIZ_GENK_FILE "data/general_knowledge.csv"
+#define QUIZ_GENK_FILE "data/gk.csv"
 #define QUIZ_HISTORY_FILE "data/history.csv"
-#define QUIZ_MOVIES_FILE "data/movies.csv"
-#define QUIZ_CAFFARIS_FILE "data/current_affairs.csv"
-#define QUESTION_MAX 500
+
+#define QUESTION_MAX 300
 #define DIFFICULTY_MAX 10
 #define OPTION_MAX 50
 #define QUIZ_TIMER 30

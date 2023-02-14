@@ -23,10 +23,16 @@
 void high_score_header()
 {
     system("cls");
+    printf("\033[1;33m"); 
     printf("\n\n\t\t\t\t\t\t\t\t\t\t    QUIZ\n");
     printf("\t\t\t\t\t\t\t\t\t\t_____________");
-    printf("\n\n\n\n\t\t\t\t\t\t\t\t\t\tHIGH SCORES\n\n\n\n");
-    printf("\t\t\t%-5s %-40s %-25s %-20s %-20s\n\n", "RANK", "NAME", "DATE", "LEVEL", "SCORE");
+    printf("\033[1;31m"); 
+    printf("\n\n\n\t\t\t\t\t\t\t\t\t\tHIGH SCORES\n");
+    printf("\t\t\t\t\t\t\t\t\t       _____________\n\n\n\n");
+    printf("\033[1;32m"); 
+    printf("\t\t\t\t%-5s  %-40s %-22s %-20s %-20s\n", "RANK", "NAME", "DATE", "LEVEL", "SCORE");
+    printf("\t\t\t\t_______________________________________________________________________________________________________\n\n");
+    printf("\033[0m");
 }
 
 void high_scores()
@@ -57,7 +63,7 @@ void high_scores()
         fclose(fp);
         return;
     }
-    // Allocate memory for all users.
+
     user_profile* pup = (user_profile*) calloc(total_users, sizeof(user_profile));
 
     if(pup == NULL)
@@ -80,7 +86,7 @@ void high_scores()
 
     fclose(fp);
 
-    // Sort the users based on score. (Descending order)
+    // Sort the users based on score.
     for(int i= 0; i < (total_users - 1); ++i) {
         for(int j = 0; j < ( total_users - i - 1); ++j) {
             if(pup[j].score < pup[j+1].score) {
@@ -92,10 +98,12 @@ void high_scores()
     }
 
     for(int i= 0; i < total_users; ++i) {
-        printf("\t\t\t%-5d %-40s %-25s %-20d %-20d\n", i+1, pup[i].name, pup[i].date, pup[i].level, pup[i].score);
+        printf("\t\t\t\t%-5d %-40s %-25s %-20d %-20d\n", i+1, pup[i].name, pup[i].date, pup[i].level, pup[i].score);
     }
 
     free(pup);
 
     getch();
 }
+
+

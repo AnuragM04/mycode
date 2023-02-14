@@ -26,22 +26,33 @@ void show_banner()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n\n\n");
-    printf("\t\t\t\t\t\t\t\t\t #####   #     #  ###  #######\n");
-    printf("\t\t\t\t\t\t\t\t\t#     #  #     #   #        #\n");
-    printf("\t\t\t\t\t\t\t\t\t#     #  #     #   #       #\n");   
-    printf("\t\t\t\t\t\t\t\t\t#     #  #     #   #      #\n");    
-    printf("\t\t\t\t\t\t\t\t\t#   # #  #     #   #     #\n");     
-    printf("\t\t\t\t\t\t\t\t\t#    #   #     #   #    #\n");      
-    printf("\t\t\t\t\t\t\t\t\t #### #   #####   ###  #######\n"); 
-    
-    Sleep(2000);                          
+    printf("\033[1;33m"); 
+    printf("\t\t\t\t\t\t\t\t\t #####  #     # ### #######\n");
+    printf("\t\t\t\t\t\t\t\t\t#     # #     #  #       #\n");
+    printf("\t\t\t\t\t\t\t\t\t#     # #     #  #      #\n");   
+    printf("\t\t\t\t\t\t\t\t\t#     # #     #  #     #\n");    
+    printf("\t\t\t\t\t\t\t\t\t#   # # #     #  #    #\n");     
+    printf("\t\t\t\t\t\t\t\t\t#    #  #     #  #   #\n");      
+    printf("\t\t\t\t\t\t\t\t\t #### #  #####  ### #######\n"); 
+    printf("\033[0m");
+    printf("\n\n\n\n");
+    printf("\033[1;32m");
+    printf("\t\t\t\t\t\t\t\t\t          BY\n"); 
+    printf("\n\n\n\n");
+    printf("\033[1;31m"); 
+    printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "M ANURAG", "A SIDDHARTHA"); 
+    printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "B AKSHITHA", "B JAHNAVI"); 
+    printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "B NIKETH", "K ARYAN"); 
+    printf("\033[0m");
+    Sleep(3000);                          
 }
 
 void thankyou_banner()
 {
     system("cls");
     printf("\n\n\n\n\n\n\n\n\n\n");
-    printf("\t\t\t\t\t\t\t\t\t  #######                                #     # ####### #     # \n");
+    printf("\033[1;32m");
+    printf("\t\t\t\t\t\t\t\t\t #######                                #     # ####### #     # \n");
     printf("\t\t\t\t\t\t\t\t\t    #    #    #   ##   #    # #    #     #   #  #     # #     # \n");
     printf("\t\t\t\t\t\t\t\t\t    #    #    #  #  #  ##   # #   #       # #   #     # #     # \n");
     printf("\t\t\t\t\t\t\t\t\t    #    ###### #    # # #  # ####         #    #     # #     # \n");
@@ -56,21 +67,26 @@ void thankyou_banner()
     printf("\t\t\t\t\t\t\t\t\t                #     #    #    #                               \n");
     printf("\t\t\t\t\t\t\t\t\t                #     #    #    #                               \n");
     printf("\t\t\t\t\t\t\t\t\t                ######     #    #######                         \n");
-                                                                   
-    Sleep(3000);                          
+    printf("\033[0m");
+    Sleep(1000);                          
 }
 
 
 int main()
 {
+
     show_banner();
 
     int choice = 0;
+
     do
     {
         system("cls");
+        fflush(stdin);
+        printf("\033[1;33m"); 
         printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\tWELCOME TO QUIZ GAME\n");
         printf("\t\t\t\t\t\t\t\t____________________________________\n\n");
+        printf("\033[0m");
         printf("\n\n\t\t\t\t\t\t\t\t1. Start\n");
         printf("\n\n\t\t\t\t\t\t\t\t2. High Scores\n");        
         printf("\n\n\t\t\t\t\t\t\t\t3. Quit\n");
@@ -89,8 +105,13 @@ int main()
             return 0;
         default:
             printf("\n\n\t\t\t\t\t\t\t\tInvalid Choice");
+            getch();
             break;
         }
+
+        choice = 0;
+
     }while(choice <= 3);
+
     return 0;
 }

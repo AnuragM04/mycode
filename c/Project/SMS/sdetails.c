@@ -13,35 +13,41 @@ void show_student_details_header()
     printf("_____________________________________________________________\n\n");
 }
 
+void get_student_details(student_details* psd)
+{
+    printf("Student Details:\n");
+    printf("Roll Number: ");
+    scanf("%s", &psd->roll_no);
+    printf("Name: ");
+    scanf("%s", &psd->name);
+    printf("Class: ");
+    scanf("%s", &psd->clas);
+    printf("Section: ");
+    scanf("%s", &psd->section);
+    printf("Moblie Number: ");
+    scanf("%s", &psd->mob_no);
+    printf("Blood Group: ");
+    scanf("%s", &psd->blood_grp);
+    printf("Email Id: ");
+    scanf("%s", &psd->email_id);
+    printf("DOB(dd/mm/yyyy): ");
+    scanf("%s", &psd->dob);
+
+    strupr(psd->roll_no);
+    strupr(psd->name);
+    strupr(psd->clas);
+    strupr(psd->section);
+    strupr(psd->blood_grp);
+    strlwr(psd->email_id);
+}
+
 void add_student()
 {
     char option;
     system("cls");
     student_details sd;
-    printf("Student Details:\n");
-    printf("Roll Number: ");
-    scanf("%s", &sd.roll_no);
-    printf("Name: ");
-    scanf("%s", &sd.name);
-    printf("Class: ");
-    scanf("%s", &sd.clas);
-    printf("Section: ");
-    scanf("%s", &sd.section);
-    printf("Moblie Number: ");
-    scanf("%s", &sd.mob_no);
-    printf("Blood Group: ");
-    scanf("%s", &sd.blood_grp);
-    printf("Email Id: ");
-    scanf("%s", &sd.email_id);
-    printf("DOB(dd/mm/yyyy): ");
-    scanf("%s", &sd.dob);
+    get_student_details(&sd);
 
-    strupr(sd.roll_no);
-    strupr(sd.name);
-    strupr(sd.clas);
-    strupr(sd.section);
-    strupr(sd.blood_grp);
-    strlwr(sd.email_id);
 
     FILE *fp = fopen(STUDENT_DETAILS_FILENAME, "ab");
 
@@ -81,42 +87,28 @@ void update_student()
         printf("Failed to open file for updating\n");
         return;
     }
-    size_t sz = 0;
+    size_t sz = sizeof(nsd);
     fflush(stdin);
     do
     {
-        sz = fread(&sd, sizeof(student_details), 1, fp);
-        if (sz != 0)
+        if (fread(&sd, sizeof(student_details), 1, fp) != 0)
         {
             if (strcmp(roll_no, sd.roll_no) == 0)
             {
                 // student_details nsd;
-                printf("Student Details:\n");
-                printf("Roll Number: ");
-                scanf("%s", &nsd.roll_no);
-                printf("Name: ");
-                scanf("%s", &nsd.name);
-                printf("Class: ");
-                scanf("%s", &nsd.clas);
-                printf("Section: ");
-                scanf("%s", &nsd.section);
-                printf("Moblie Number: ");
-                scanf("%s", &nsd.mob_no);
-                printf("Blood Group: ");
-                scanf("%s", &nsd.blood_grp);
-                printf("Email Id: ");
-                scanf("%s", &nsd.email_id);
-                printf("DOB(dd/mm/yyyy): ");
-                scanf("%s", &nsd.dob);
-                fwrite(&nsd, sizeof(nsd), 1, fp);
-                // fflush(fp);
+                fseek(fp, -sz, SEEK_CUR);
+                get_student_details(&nsd);
+                fwrite(&nsd, sz, 1, fp);
                 printf("Successfully Updated\n");
-                break;
+                fclose(fp);
+                return;
             }
         }
     } while (sz != 0);
-    // fflush(fp);
+
     fclose(fp);
+
+    printf("Successfully Updated\n");
 }
 
 void show_student_details()
