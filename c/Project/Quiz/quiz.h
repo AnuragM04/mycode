@@ -9,9 +9,8 @@
                         M ANURAG 
                         B AKSHITHA
                         A SIDDHARTHA
-                        B JAHNAVI
+                        M JAHNAVI
                         K ARYAN
-                        B NIKETH
 */
 
 #define USER_PROFILE_FILE "scores/profile.dbs" 

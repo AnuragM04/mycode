@@ -9,9 +9,8 @@
                         M ANURAG 
                         B AKSHITHA
                         A SIDDHARTHA
-                        B JAHNAVI
+                        M JAHNAVI
                         K ARYAN
-                        B NIKETH
 */
 
 #include <stdio.h>
@@ -211,7 +210,7 @@ int show_quiz(int question, quiz_info* qi, user_profile* pup, int correct)
     
     do
     {
-        printf("\b\r\t\t\t\t\t\t\t\t\t\t\b\b%2ds\r\t\t\t\t\t\t\t\t\t", timer);
+        printf("\r\t\t\t\t\t\t\t\t\t\t%2ds\r\t\t\t\t\t\t\t\t\t", timer);
         if(kbhit())
         {
             int key = getche();
@@ -300,7 +299,7 @@ void start_quiz()
 
     int actual_score = correct*up.level;
 
-    if(actual_score > up.score)
+    if(actual_score >= up.score)
     {
         if(correct != MAX_QUESTIONS_LEVEL)
         {

@@ -9,9 +9,8 @@
                         M ANURAG 
                         B AKSHITHA
                         A SIDDHARTHA
-                        B JAHNAVI
+                        M JAHNAVI
                         K ARYAN
-                        B NIKETH
 */
 
 #include <stdio.h>
@@ -40,9 +39,9 @@ void show_banner()
     printf("\t\t\t\t\t\t\t\t\t          BY\n"); 
     printf("\n\n\n\n");
     printf("\033[1;31m"); 
-    printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "M ANURAG", "A SIDDHARTHA"); 
+    printf("\t\t\t\t\t\t\t\t\t\t%-30s\n\n", "M ANURAG"); 
     printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "B AKSHITHA", "B JAHNAVI"); 
-    printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "B NIKETH", "K ARYAN"); 
+    printf("\t\t\t\t\t\t\t\t%-30s\t%-30s\n\n", "A SIDDHARTHA", "K ARYAN"); 
     printf("\033[0m");
     Sleep(3000);                          
 }

@@ -9,9 +9,8 @@
                         M ANURAG 
                         B AKSHITHA
                         A SIDDHARTHA
-                        B JAHNAVI
+                        M JAHNAVI
                         K ARYAN
-                        B NIKETH
 */
 
 #include <stdio.h>
