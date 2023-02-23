@@ -9,11 +9,11 @@
 void parse_details(char* pbuffer, student_details* psd)
 {
     int i = 0;
-    char values[8][40] = {0};
+    char values[8][60] = {0};
     char *str = strtok(pbuffer, ","); 
     while(str != NULL)
     {
-        strcpy_s(values[i], 40, str);
+        strcpy_s(values[i], 60, str);
         i++;
         str = strtok(NULL, ",\n");
     }

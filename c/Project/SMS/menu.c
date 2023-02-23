@@ -18,6 +18,7 @@ void show_student_menu()
     do
     {
         system("cls");
+        fflush(stdin);
         printf("\n\n\n\n\n\n\t\t\t\t\t\t\tSTUDENT DETAILS\n");
         printf("\t\t\t\t\t\t________________________________\n\n");
         printf("\t\t\t\t\t\t1. Add Student\n\n");
@@ -61,6 +62,7 @@ void show_marks_menu()
     do
     {
         system("cls");
+        fflush(stdin);
         printf("\n\n\n\n\n\n\t\t\t\t\t\t\tSTUDENT MARKS\n");
         printf("\t\t\t\t\t\t_____________________________\n\n");        
         printf("\t\t\t\t\t\t1. Add Marks\n\n");
