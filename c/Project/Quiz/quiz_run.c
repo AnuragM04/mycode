@@ -244,6 +244,8 @@ int show_quiz(int question, quiz_info* qi, user_profile* pup, int correct)
                 break;
             default:
                 // User has entered wrong answer.
+                printf("\t\tInvalid option");
+                continue;
                 break;
             }
             if(strcmp(option, qi->answer) == 0)
