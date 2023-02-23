@@ -198,7 +198,7 @@ int show_quiz(int question, quiz_info* qi, user_profile* pup, int correct)
     printf("\nSCORE      : %d", correct*pup->level);
     printf("\nDIFFICULTY : %s", difficulty);
     printf("\033[1;32m"); 
-    printf("\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\tQuestion - %d\n", question);
+    printf("\n\n\n\n\n\t\t\t\t\t\t\t\t\t\tQuestion - %d\n", question);
     printf("\t\t\t\t\t\t\t\t\t       _______________\n\n\n", question);
     printf("\033[0m");
     printf("\n\n\t\t\t\t%s\n\n", qi->question);
@@ -219,7 +219,7 @@ int show_quiz(int question, quiz_info* qi, user_profile* pup, int correct)
             switch (key)
             {
             case 27: // esc key.
-                printf("\nDo you want to quit game?");
+                printf("\r\n\n\t\t\t\t\t\t Do you want to quit game (Y/N)?");
                 scanf("%s", &choice);
                 if(choice == 'y' || choice == 'Y')
                 {

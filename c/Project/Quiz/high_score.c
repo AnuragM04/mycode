@@ -53,7 +53,8 @@ void high_scores()
     fseek(fp, 0, SEEK_SET); // seek back to beginning of file
 
     size_t sz = 0;
-    int total_users = filesize/sizeof(user_profile);
+    size_t sup = sizeof(user_profile);
+    int total_users = filesize/sup;
 
     if(total_users <= 0)
     {
@@ -63,7 +64,7 @@ void high_scores()
         return;
     }
 
-    user_profile* pup = (user_profile*) calloc(total_users, sizeof(user_profile));
+    user_profile* pup = (user_profile*) calloc(total_users, sup);
 
     if(pup == NULL)
     {
@@ -77,7 +78,7 @@ void high_scores()
     user_profile tup;
     do
     {
-        if((sz = fread(&pup[user], sizeof(user_profile), 1, fp)) != 0)
+        if((sz = fread(&pup[user], sup, 1, fp)) != 0)
         {
             ++user;
         }
@@ -89,9 +90,9 @@ void high_scores()
     for(int i= 0; i < (total_users - 1); ++i) {
         for(int j = 0; j < ( total_users - i - 1); ++j) {
             if(pup[j].score < pup[j+1].score) {
-                memcpy(&tup, &pup[j], sizeof(user_profile));
-                memcpy(&pup[j], &pup[j+1], sizeof(user_profile));
-                memcpy(&pup[j+1], &tup, sizeof(user_profile));
+                memcpy(&tup, &pup[j], sup);
+                memcpy(&pup[j], &pup[j+1], sup);
+                memcpy(&pup[j+1], &tup, sup);
             }
         }
     }
