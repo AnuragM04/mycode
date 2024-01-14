@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.event.*;
 
-public class PMSSplash extends JDialog {
+public class PMSGenerate extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
 
-    public PMSSplash() {
+    public PMSGenerate() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);

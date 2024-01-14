@@ -1,8 +1,11 @@
-public class PasswordRecord {
+import java.io.Serializable;
+
+public class PasswordRecord implements Serializable {
     private String URL;
     private String userID;
     private String password;
     private String additionalInfo;
+    private String notes;
 
     public String getURL() {
         return URL;
@@ -30,5 +33,12 @@ public class PasswordRecord {
     }
     public void setAdditionalInfo(String additionalInfo) {
         this.additionalInfo = additionalInfo;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
