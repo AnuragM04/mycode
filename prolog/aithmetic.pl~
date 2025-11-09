@@ -1,0 +1,23 @@
+addition(A, B, Res):-
+    Res is A+B,
+    write('A + B = '),
+    write(Res).
+
+subtraction(A, B, Res):-
+    Res is A-B,
+    format('A - B = ~w',[Res is A-B]).
+
+multiplication(A, B, Res):-
+    Res is A*B,
+    write('A * B = '),
+    write(Res).
+
+division(A, B, Res):-
+    Res is A//B,
+    write('A // B = '),
+    write(Res).
+
+modulus(A, B, Res):-
+    Res is A+B,
+    write('A mod B = '),
+    write(Res).
